@@ -9,7 +9,7 @@ export const userState = create((set)=>({
             session: {...state.session, isValid: key.isValid }
         })),
     removeSession:() =>
-        set((state)=({
+        set((state)=>({
             session:{...state.session, isValid: false}
         }))
 }))

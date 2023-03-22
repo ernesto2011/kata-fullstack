@@ -4,8 +4,10 @@ import { GET_EMPLOYEE } from "../graphql/Queries";
 import { REMOVE_EMPLOYEE } from "../graphql/Mutation";
 import { Link } from "react-router-dom";
 import { userState } from "../config/UserState";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const verifySession = userState((state)=> state.session)
   console.log(verifySession);
   const [searchEmployee, { data, error }] = useLazyQuery(GET_EMPLOYEE);
@@ -15,7 +17,8 @@ const Home = () => {
   });
 
   useEffect(() => {
-    searchEmployee();
+    if(!verifySession.isValid) return navigate('/')
+      searchEmployee();
   }, []);
 
   if (data) {
